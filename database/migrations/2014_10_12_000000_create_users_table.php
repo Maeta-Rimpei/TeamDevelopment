@@ -28,8 +28,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->dropUnique('users_email_unique');
-            $table->unique(['email','deleted_at'],'users_email_unique');
         });
     }
 
@@ -41,9 +39,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
-            $table->dropUnique('users_email_unique');
-            $table->unique('email','users_email_unique');            
+          
         });
     }
 }
