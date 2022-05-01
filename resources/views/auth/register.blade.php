@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
+                    <!-- 名前の入力 -->
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
@@ -24,7 +24,7 @@
                                 @enderror
                             </div>
                         </div>
-
+                    <!-- メールアドレス入力 -->
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
@@ -38,7 +38,7 @@
                                 @enderror
                             </div>
                         </div>
-
+                    <!-- パスワード入力 -->
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
@@ -52,12 +52,103 @@
                                 @enderror
                             </div>
                         </div>
-
+                    <!-- パスワードの再入力 -->
                         <div class="row mb-3">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+                    <!-- 性別 -->
+                        <div class="row mb-3">
+                            <label for="sex" class="col-md-4 col-form-label text-md-end">{{ __('Sex') }}</label>
+
+                            <div class="col-md-6">
+                            <!--<input id="sex" type="select" class="form-control @error('sex') is-invalid @enderror" name="sex" value="{{ old('sex') }}" required> -->
+                            <select name="sex" input id="sex" value="{{ old('sex') }}">
+                                <option value="0">Man</option>
+                                <option value="1">Woman</option>
+                            </select>
+                                @error('sex')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    <!-- スキル -->
+                        <div class="row mb-3">
+                            <label for="skill" class="col-md-4 col-form-label text-md-end">{{ __('Skill') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="skill" type="text" class="form-control @error('skill') is-invalid @enderror" name="skill" value="{{ old('skill') }}" required autocomplete="skill" autofocus>
+
+                                @error('skill')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    <!-- 経験年数入力 -->
+                        <div class="row mb-3">
+                            <label for="experience_year" class="col-md-4 col-form-label text-md-end">{{ __('Experience Year') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="experience_year" type="text" class="form-control @error('experience_year') is-invalid @enderror" name="experience_year" value="{{ old('experience_year') }}" required autocomplete="experience_year" autofocus>
+
+                                @error('experience_year')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    <!-- 年齢入力 -->
+                        <div class="row mb-3">
+                            <label for="birthday" class="col-md-4 col-form-label text-md-end">{{ __('Birthday') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="birthday" type="text" class="form-control @error('birthday') is-invalid @enderror" name="bithday" value="{{ old('bithday') }}" required autocomplete="bithday" autofocus>
+
+                                @error('bithday')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    <!-- github入力 -->
+                    <div class="row mb-3">
+                            <label for="github" class="col-md-4 col-form-label text-md-end">{{ __('Git Hub') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="github" type="text" class="form-control @error('github') is-invalid @enderror" name="github" value="{{ old('github') }}" required autocomplete="github" autofocus>
+
+                                @error('github')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    <!-- プロフィール画像入力 -->
+                    <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('プロフィール画像') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="image" type="text" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}" required autocomplete="image" autofocus>
+
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
