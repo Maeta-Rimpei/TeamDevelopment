@@ -14,6 +14,8 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        {
+            Group::factory()->count(10)->create();
+        }
     }
 }

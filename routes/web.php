@@ -17,9 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/group_show', [App\Http\Controllers\GroupController::class, 'show'])->name('show');
-// Route::get('/group_create', [App\Http\Controllers\GroupController::class, 'create'])->name('create');
+// -----------------------------------------------グループ関連------------------------------------------------
+// グループ一覧画面表示
+    Route::get('/group_show', [App\Http\Controllers\GroupController::class, 'show'])->name('show');
+// グループ作成画面
+    Route::get('/group_showcreate', [App\Http\Controllers\GroupController::class, 'showCreate'])->name('showCreate');
+// グループ作成
+    Route::post('/group_execreate', [App\Http\Controllers\GroupController::class, 'exeCreate'])->name('exeCreate');
+// グループ詳細画面表示
+    Route::get('/group/{id}', [App\Http\Controllers\GroupController::class, 'showDetail'])->name('showDetail');
 
+// -----------------------------------------------------------------------------------------------------------
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

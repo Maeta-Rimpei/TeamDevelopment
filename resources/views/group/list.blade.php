@@ -1,5 +1,4 @@
-@extends('layout')
-@section('title', 'ブログ一覧')
+@extends('layouts.app')
 @section('content')
 
 <div class="row">
@@ -14,17 +13,14 @@
             <tr>
                 <th>No.</th>
                 <th>タイトル</th>
-                <th>日付</th>
-                <th></th>
+                <th>作成日時</th>
                 <th></th>
             </tr>
-            @foreach($blogs as $blog)
+            @foreach($groups as $group)
             <tr>
-                <td>{{ $group->id  }}</td>
-                <!-- <td><a href="/group/{{ $group->id }}">{{ $group->title  }}</a></td> -->
-                <td>{{ $blog->updated_at  }}</td>
-                <!-- <td><button type="button" class="btn btn-primary" onclick="location.href='/blog/edit/{{ $blog->id }}'">編集</button></td> -->
-                <form method="POST" action="{{ route('delete', $blog->id) }}" onSubmit="return checkDelete()">
+                <td>{{ $group->id }}</td>
+                <td><a href="{{ route('showDetail') }}">{{ $group->title }}</a></td>
+                <td>{{ $group->updated_at }}</td>
                 @csrf
                 <td><button type="submit" class="btn btn-primary" onclick=>削除</button></td>
                 </form>

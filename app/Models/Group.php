@@ -21,6 +21,8 @@ class Group extends Model
         'reword',
         'number_applicants',
         'number_selection',
-        'required_skill'
+        'required_skill',
+        'term_of_apply',
+        'term_of_selection'
     ];
 }
