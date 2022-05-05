@@ -54,11 +54,11 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'sex'      => ['required', 'string'],
-            'skill' =>['repuired', 'string'],
+            'skill' =>['string'],
             'experience_year' =>['required', 'integer'],
-            'bithday'=>['required', 'integer'],
-            'github' =>['stirng'],
-            'image' =>['string'],
+            'birthday'=>['required', 'integer'],
+            'github' =>['required','string'],
+            'image' =>['image',],
         ]);
     }
 
@@ -70,6 +70,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+       $image=request()->file('image')->getClientOriginalName();
+        request()->file('image')->storeAs('public/images', $image);
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -77,9 +80,21 @@ class RegisterController extends Controller
             'sex'      => $data['sex'],
             'skill' => $data['skill'],
             'experience_year' => $data['experience_year'],
-            'bithday' => $data['bithday'],
+            'birthday' => $data['birthday'],
             'github' =>$data['github'],
-            'image' =>$data['image'],
+            'image' =>$image,
         ]);
+        return $user;
     }
+
+    public function store(Request $request)
+{
+	if($request->skill == config('const.skill.HTML')){
+		// 処理
+	}
+
+	// insert
+    User::create(['skill' => config('const.skill.HTML')]);
+}
+
 }

@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->integer('birthday');
             $table->tinyInteger('sex')->comment('0=男,1=女');
             $table->string('email', 255)->unique();
-            $table->string('image')->comment('プロフィール画像')->nullable();
+            $table->string('image')->default('user_default.jpg')->after('name')->comment('プロフィール画像')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('skill')->comment('スキル');

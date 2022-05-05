@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
                     <!-- 名前の入力 -->
                         <div class="row mb-3">
@@ -82,13 +82,15 @@
                             <label for="skill" class="col-md-4 col-form-label text-md-end">{{ __('Skill') }}</label>
 
                             <div class="col-md-6">
-                                <input id="skill" type="text" class="form-control @error('skill') is-invalid @enderror" name="skill" value="{{ old('skill') }}" required autocomplete="skill" autofocus>
+                                @foreach(config('const.skill') as $skill =>$value)
+                                <label><input id="skill" type="checkbox"  class="form-check-input" name="skill[]" value="{{ $value }}" >{{$skill}}</label>
 
                                 @error('skill')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                @endforeach
                             </div>
                         </div>
 
@@ -112,7 +114,7 @@
                             <label for="birthday" class="col-md-4 col-form-label text-md-end">{{ __('Birthday') }}</label>
 
                             <div class="col-md-6">
-                                <input id="birthday" type="text" class="form-control @error('birthday') is-invalid @enderror" name="bithday" value="{{ old('bithday') }}" required autocomplete="bithday" autofocus>
+                                <input id="birthday" type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required autocomplete="birthday" autofocus>
 
                                 @error('bithday')
                                     <span class="invalid-feedback" role="alert">
@@ -123,7 +125,7 @@
                         </div>
 
                     <!-- github入力 -->
-                    <div class="row mb-3">
+                        <div class="row mb-3">
                             <label for="github" class="col-md-4 col-form-label text-md-end">{{ __('Git Hub') }}</label>
 
                             <div class="col-md-6">
@@ -138,11 +140,11 @@
                         </div>
 
                     <!-- プロフィール画像入力 -->
-                    <div class="row mb-3">
+                        <div class="row mb-3">
                             <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('プロフィール画像') }}</label>
 
                             <div class="col-md-6">
-                                <input id="image" type="text" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ old('image') }}" required autocomplete="image" autofocus>
+                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" >
 
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
