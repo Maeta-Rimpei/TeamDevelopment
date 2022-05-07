@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/user_register', [App\Http\Controllers\ProfileController::class, 'userRegister'])->name('user_register');
+Route::get('/user_create', [App\Http\Controllers\ProfileController::class, 'create'])->name('user_create');
 
 Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
