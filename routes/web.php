@@ -26,7 +26,6 @@ Route::get('/', function () {
     Route::post('/group_execreate', [App\Http\Controllers\GroupController::class, 'exeCreate'])->name('exeCreate');
 // グループ詳細画面表示
     Route::get('/group/{id}', [App\Http\Controllers\GroupController::class, 'showDetail'])->name('showDetail');
-
 // -----------------------------------------------------------------------------------------------------------
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

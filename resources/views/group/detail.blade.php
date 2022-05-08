@@ -10,6 +10,17 @@
             {{ session('err_msg') }}
         </p>
         @endif
+
+        @if (session('term_over'))
+        <p class="text-danger">
+            {{ session('term_over') }}
+        </p>
+        @endif
+
+        @if (time() >= strtotime($group->term_of_apply))
+        <h5>このグループの募集は終了しました。</h5>
+        @endif
+
         <div class="row">
             <div class="col-3 d-flex justify-content-center mb-3">件名</div>
             <div class="col-9">{{ $group->title }}</div>
@@ -30,7 +41,6 @@
             <div class="col-3 d-flex justify-content-center mb-3">選抜期間</div>
             <div class="col-9">{{ $group->term_of_selection }}</div>
         </div>
-
 
 
         <table>
@@ -71,21 +81,6 @@
                 <td>{{ $group->term_of_selection }}</td>
             </tr>
         </table>
-        <form action="">
-        button type="submit" class="btn btn-primary" onclick=>削除</button>
-        @csrf
-        </form>
-        </tr>
-        </table>
     </div>
 </div>
-<script>
-    function checkDelete() {
-        if (window.confirm('削除してよろしいですか？')) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-</script>
 @endsection

@@ -6,6 +6,7 @@
         <h2>グループ作成</h2>
         <!-- 登録フォーム -->
         <form method="POST" action="{{ route('exeCreate') }}" onSubmit="return checkSubmit()">
+            @csrf
             <!-- 件名 -->
             <div class="form-group">
                 <label for="title">
@@ -35,7 +36,7 @@
                 <label for="deadline">
                     納期
                 </label>
-                <input type="date" id="deadline" name="deadline" min="date('Y-m-d')" class="form-control" rows="4">
+                <input type="text" id="deadline" name="deadline" class="form-control" rows="4">
                 @if ($errors->has('deadline'))
                 <div class="text-danger">
                     {{ $errors->first('deadline') }}
@@ -60,14 +61,13 @@
                     応募人数上限
                 </label>
                 <select id="number_applicants" name="number_applicants" class="form-control" rows="4">
-                    @for ($i=1; $i<=50; $i++){
-                        <option value="$i">{{ $i . '名' }}</option>
+                    @for ($i=1; $i<=50; $i++){ <option value="{{ $i }}">{{ $i . '名' }}</option>
                         @if ($i >= 50){
-                            <option value="50">50名以上</option>
+                        <option value="50">50名以上</option>
                         }
                         @endif
-                    }
-                    @endfor
+                        }
+                        @endfor
                 </select>
                 @if ($errors->has('number_applicants'))
                 <div class="text-danger">
@@ -75,20 +75,19 @@
                 </div>
                 @endif
             </div>
-                    <!-- 選抜人数 -->
+            <!-- 選抜人数 -->
             <div class="form-group">
                 <label for="number_selection">
                     選抜人数
                 </label>
                 <select id="number_selection" name="number_selection" class="form-control" rows="4">
-                    @for ($j=1; $j<=50; $j++){
-                        <option value="$j">{{ $j . '名' }}</option>
+                    @for ($j=1; $j<=50; $j++){ <option value="{{ $j }}">{{ $j . '名' }}</option>
                         @if ($j >= 50){
-                            <option value="50">50名以上</option>
+                        <option value="50">50名以上</option>
                         }
                         @endif
-                    }
-                    @endfor
+                        }
+                        @endfor
                 </select>
                 @if ($errors->has('number_selection'))
                 <div class="text-danger">
@@ -96,8 +95,8 @@
                 </div>
                 @endif
             </div>
-                <!-- 募集期間 -->
-                <div class="form-group">
+            <!-- 募集期間 -->
+            <div class="form-group">
                 <label for="term_of_apply">
                     募集期間
                 </label>
@@ -107,7 +106,8 @@
                     {{ $errors->first('term_of_apply') }}
                 </div>
                 @endif
-                <!-- 選抜期間 -->
+            </div>
+            <!-- 選抜期間 -->
             <div class="form-group">
                 <label for="term_of_selection">
                     選抜期間
@@ -118,37 +118,29 @@
                     {{ $errors->first('term_of_selection') }}
                 </div>
                 @endif
-            <!-- 必要なスキル -->
+            </div>
+            <!-- 必要なスキル [仮置き 後ほどチェックボックスを追加] -->
             <div class="form-group">
                 <label for="number_selection">
                     必要なスキル
                 </label>
-                <!-- <select id="number_selection" name="number_selection" class="form-control" rows="4">
-                    @for ($j=1; $j<=50; $j++){
-                        <option value="$j">{{ $j . '名' }}</option>
-                        @if ($j >= 50){
-                            <option value="50">50名以上</option>
-                        }
-                        @endif
-                    }
-                    @endfor
-                </select> -->
-                <!-- @if ($errors->has('number_selection'))
+                <input type="text" id="required_skill" name="required_skill" class="form-control" rows="4">
+                @if ($errors->has('required_skill'))
                 <div class="text-danger">
-                    {{ $errors->first('number_selection') }}
+                    {{ $errors->first('required_skill') }}
                 </div>
-                @endif -->
+                @endif
             </div>
+            <!-- ユーザーIDをhiddenで送信 -->
+            <input type="hidden" name="user_id" value="2">
 
-
-
-
+            <!-- ボタン -->
             <div class="mt-5">
                 <a class="btn btn-secondary" href="{{ route('show') }}">
                     キャンセル
                 </a>
                 <button type="submit" class="btn btn-primary">
-                    投稿する
+                    グループ作成
                 </button>
             </div>
         </form>
@@ -156,7 +148,7 @@
 </div>
 <script>
     function checkSubmit() {
-        if (window.confirm('送信してよろしいですか？')) {
+        if (window.confirm('この内容でグループを作成してよろしいですか？')) {
             return true;
         } else {
             return false;

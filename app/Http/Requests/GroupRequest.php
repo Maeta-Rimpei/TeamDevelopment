@@ -13,7 +13,7 @@ class GroupRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:50',
+            'content' => 'required',
+            'deadline' => 'required|after:today',
+            'reword' => 'required',
+            'number_applicants' => 'required',
+            'number_selection' => 'required',
+            // 'required_skill' => 'required',
+            'term_of_apply' => 'required|date|after:today|before:term_of_selection',
+            'term_of_selection' => 'required|date|after:term_of_apply|before:deadline'
         ];
     }
 }

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\GroupRequest;
 use App\Models\Group;
+use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class GroupController extends Controller
 {
@@ -13,8 +18,12 @@ class GroupController extends Controller
      */
     public function show()
     {
-        $groups = Group::all();
-        return view('group.list', ['groups' => $groups]);
+        // グループデータを降順で取得
+        $groups = Group::orderBy('updated_at', 'desc')->get();
+
+        // $group = Group::get();
+        // $time_apply = strtotime($group->term_of_apply);
+        return view('group.list', compact('groups'));
     }
 
     /**
@@ -26,19 +35,45 @@ class GroupController extends Controller
     {
         $group = Group::find($id);
         // $idが空だった場合、一覧画面にリダイレクト
-        if (is_null($id)){
-            \session::flash('err_msg', '選択されたグループは存在しません。');
-            return redirect(route(group.show));
+        if (is_null($id)) {
+            \Session::flash('err_msg', '選択されたグループは存在しません。');
+            return redirect(route(group . show));
         }
-        return view('group.detail', ['group' => $group]);
+
+        return view('group.detail', compact('group'));
+    }
+
+    /**
+     * グループ作成画面
+     * @return view
+     */
+    public function showCreate()
+    {
+        // ログインuser情報を変数に格納
+
+        // グループ作成フォームの表示
+        // viewにuser情報を渡す予定
+        return view('group.form');
     }
 
     /**
      * グループ作成
      * @return view
      */
-    public function showCreate()
+    public function exeCreate(GroupRequest $request)
     {
-        return view('group.form');
+        // 作成するグループの情報を取得
+        $input = $request->all();
+        // トランザクション処理
+        \DB::beginTransaction();
+        // 例外処理
+        try {
+            // グループ作成
+            Group::create($input);
+            \DB::commit();
+        } catch (\Throwable $e) {
+            \DB::rollback();
+        }
+        return redirect(route('show'));
     }
 }

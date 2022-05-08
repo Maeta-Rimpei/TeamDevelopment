@@ -22,6 +22,7 @@ class Group extends Model
         'number_applicants',
         'number_selection',
         'required_skill',
+        'user_id',
         'term_of_apply',
         'term_of_selection'
     ];
