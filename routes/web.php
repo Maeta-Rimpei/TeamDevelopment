@@ -19,17 +19,13 @@ Route::get('/', function () {
 
 // -----------------------------------------------グループ関連------------------------------------------------
 // グループ一覧画面表示
-Route::get('/group_show', [App\Http\Controllers\GroupController::class, 'groupShow'])->name('groupShow');
+    Route::get('/group_show', [App\Http\Controllers\GroupController::class, 'show'])->name('show');
 // グループ作成画面
-Route::get('/group_showcreate', [App\Http\Controllers\GroupController::class, 'groupShowCreate'])->name('groupShowCreate');
+    Route::get('/group_showcreate', [App\Http\Controllers\GroupController::class, 'showCreate'])->name('showCreate');
 // グループ作成
-Route::post('/group_execreate', [App\Http\Controllers\GroupController::class, 'groupExeCreate'])->name('groupExeCreate');
+    Route::post('/group_execreate', [App\Http\Controllers\GroupController::class, 'exeCreate'])->name('exeCreate');
 // グループ詳細画面表示
-Route::get('/group/{id}', [App\Http\Controllers\GroupController::class, 'groupShowDetail'])->name('groupShowDetail');
-// -----------------------------------------------------------------------------------------------------------
-// -----------------------------------------------応募関連----------------------------------------------------
-// グループへの応募一覧
-// Route::get('/app_show', [App\Http\Controllers\ApplicationController::class, 'appShow'])->name('appShow');
+    Route::get('/group/{id}', [App\Http\Controllers\GroupController::class, 'showDetail'])->name('showDetail');
 // -----------------------------------------------------------------------------------------------------------
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
