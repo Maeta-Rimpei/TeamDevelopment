@@ -50,15 +50,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            // 'name' => ['required', 'string', 'max:255'],
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'sex'      => ['required'],
-            // 'skill' =>['string'],
-            // 'experience_year' =>['required', 'integer'],
-            // 'birthday'=>['required'],
-            // 'github' =>['required','string'],
-            // 'image' =>['image'],
+'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL', //変更後
+
+             'name' => ['required', 'string', 'max:255'],
+             'password' => ['required', 'string', 'min:8', 'confirmed'],
+             'sex'      => ['required'],
+             'skill' =>['string'],
+             'experience_year' =>['required', 'integer'],
+             'birthday'=>['required'],
+             'github' =>['required','string'],
+             'image' =>['image'],
         ]);
     }
 
@@ -71,21 +72,21 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
        $image=request()->file('image')->getClientOriginalName();
-       //dd($image);
-        //request()->file('image')->storeAs('public/images', $image);
+       dd($image);
+        request()->file('image')->storeAs('public/images', $image);
 
-        // return User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        //     'sex'      => $data['sex'],
-        //     'skill' => $data['skill'],
-        //     'experience_year' => $data['experience_year'],
-        //     'birthday' => $data['birthday'],
-        //     'github' =>$data['github'],
-        //     'image' =>$image,
-        // ]);
-        // return $user;
+         return User::create([
+             'name' => $data['name'],
+             'email' => $data['email'],
+             'password' => Hash::make($data['password']),
+             'sex'      => $data['sex'],
+             'skill' => $data['skill'],
+             'experience_year' => $data['experience_year'],
+             'birthday' => $data['birthday'],
+             'github' =>$data['github'],
+             'image' =>$image,
+         ]);
+         return $user;
     }
 
     public function store(Request $request)
