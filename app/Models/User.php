@@ -24,7 +24,7 @@ class User extends Authenticatable
         'sex',
         'skill',
         'experience_year',
-        'bithday',
+        'birthday',
         'github',
         'image',
     ];
