@@ -16,10 +16,19 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'sex' => mt_rand(0, 1),
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'image' => null,
+            'birthday' => date("m.d.y"),
+            'email_verified_at' => date("m.d.y"),
+            'password' => $this->faker->unique()->password(), // password
+            'skill' => $this->faker->name(),
+            'experience_year' => mt_rand(1, 15),
+            'github' => null,
             'remember_token' => Str::random(10),
+            'created_at' => date("m.d.y"),
+            'updated_at' => date("m.d.y"),
+            'deleted_at' => date("m.d.y")
         ];
     }
 

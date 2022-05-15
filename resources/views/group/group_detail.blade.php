@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('groupdetail')
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h2>グループ詳細</h2>
@@ -41,46 +41,51 @@
             <div class="col-3 d-flex justify-content-center mb-3">選抜期間</div>
             <div class="col-9">{{ $group->term_of_selection }}</div>
         </div>
-
-
-        <table>
-            <tr>
-                <th>件名</th>
-                <td>{{ $group->title }}</td>
-            </tr>
-            <tr>
-                <th>仕事内容</th>
-                <td>{{$group->content}}</td>
-            </tr>
-            <tr>
-                <th>納期</th>
-                <td>{{ $group->deadline }}</td>
-            </tr>
-            <tr>
-                <th>報酬</th>
-                <td>{{ number_format($group->reword) . '円' }}</td>
-            </tr>
-            <tr>
-                <th>応募受付人数</th>
-                <td>{{ $group->number_applicants }}</td>
-            </tr>
-            <tr>
-                <th>選抜人数</th>
-                <td>{{ $group->number_selection }}</td>
-            </tr>
-            <tr>
-                <th>必要なスキル</th>
-                <td>{{ $group->required_skill }}</td>
-            </tr>
-            <tr>
-                <th>応募期間</th>
-                <td>{{ $group->term_of_apply }}</td>
-            </tr>
-            <tr>
-                <th>選抜期間</th>
-                <td>{{ $group->term_of_selection }}</td>
-            </tr>
-        </table>
     </div>
 </div>
+
+<!-- 応募一覧 -->
+<h2>応募者一覧</h2>
+<table class="table table-striped">
+    <tr>
+        <th style="width :30%"></th>
+        <th style="width :10%">応募者</th>
+        <th style="width :55%">コメント</th>
+    </tr>
+    @foreach($users as $user)
+    <tr>
+        <td>
+            <!-- プロフィール画像 兼 モーダルボタン -->
+            <img src="{{url('storage/image/A_Einstein-1.jpg')}}" alt="{{ $user->name }}の画像" class="profile_img" data-bs-toggle="modal" data-bs-target="#profileModal">
+            <style>
+                img.profile_img {
+                    max-width: 15%;
+                    border-radius: 50%;
+                }
+            </style>
+            <!-- モーダルプロフィール -->
+            <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="profileModalLabel">Auth user のプロフィール</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ここにプロフィール詳細書きます。
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td>{{ $user->name }}</td>
+        <td>{{ $user->pivot->comment }}</td>
+    </tr>
+    @endforeach
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 @endsection

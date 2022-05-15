@@ -16,51 +16,50 @@ class GroupController extends Controller
      * グループ一覧
      * @return view
      */
-    public function show()
+    public function groupShow()
     {
         // グループデータを降順で取得
         $groups = Group::orderBy('updated_at', 'desc')->get();
 
-        // $group = Group::get();
-        // $time_apply = strtotime($group->term_of_apply);
-        return view('group.list', compact('groups'));
+        return view('group.group_list', compact('groups'));
     }
 
     /**
-     * グループ詳細画面
+     * グループ詳細画面/応募一覧画面
      * @param int $id
      * @return view
      */
-    public function showDetail($id)
+    public function groupShowDetail($id)
     {
         $group = Group::find($id);
+        $users = $group->user;
         // $idが空だった場合、一覧画面にリダイレクト
         if (is_null($id)) {
             \Session::flash('err_msg', '選択されたグループは存在しません。');
-            return redirect(route(group . show));
+            return redirect(route(group . groupShow));
         }
 
-        return view('group.detail', compact('group'));
+        return view('group.group_detail', compact('group', 'users'));
     }
 
     /**
      * グループ作成画面
      * @return view
      */
-    public function showCreate()
+    public function groupShowCreate()
     {
         // ログインuser情報を変数に格納
 
         // グループ作成フォームの表示
         // viewにuser情報を渡す予定
-        return view('group.form');
+        return view('group.group_form');
     }
 
     /**
      * グループ作成
      * @return view
      */
-    public function exeCreate(GroupRequest $request)
+    public function groupExeCreate(GroupRequest $request)
     {
         // 作成するグループの情報を取得
         $input = $request->all();
@@ -74,6 +73,6 @@ class GroupController extends Controller
         } catch (\Throwable $e) {
             \DB::rollback();
         }
-        return redirect(route('show'));
+        return redirect(route('groupShow'));
     }
 }

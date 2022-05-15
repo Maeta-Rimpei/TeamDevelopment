@@ -29,7 +29,7 @@ class GroupFactory extends Factory
             'term_of_selection' => date("m.d.y"),
             'created_at' => date("m.d.y"),
             'updated_at' => date("m.d.y"),
-            'deleted_at' => date("m.d.y")
+            'deleted_at' => null
         ];
     }
 }

@@ -26,4 +26,12 @@ class Group extends Model
         'term_of_apply',
         'term_of_selection'
     ];
+
+    /**
+     * Groupモデル->Userモデル の紐づけ
+     */
+    public function user()
+    {
+        return $this->belongsToMany('App\Models\User', 'applications')->withPivot('comment');
+    }
 }

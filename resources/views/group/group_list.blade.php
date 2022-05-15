@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('grouplist')
 <div class="row">
-    <div class="col-md-10 col-md-offset-2">
+    <div class="col-md-12 col-md-offset-2">
         <h2>グループ一覧</h2>
         @if (session('err_msg'))
         <p class="text-danger">
@@ -10,24 +10,18 @@
         </p>
         @endif
 
-        @if (session('term_over'))
-        <p class="text-danger">
-            {{ session('term_over') }}
-        </p>
-        @endif
-
-        <a href="{{ route('showCreate') }}">グループ作成</a>
+        <a href="{{ route('groupShowCreate') }}">グループ作成</a>
 
         <!-- 検索フォーム -->
         <!-- TODO：コントローラー -->
         <p>グループ検索</p>
-        <form method="GET" action="">
+        <form method="GET" action="{{ route('groupSearch') }}">
             @csrf
             <input type="search" placeholder="キーワードを入力" name="search" value="">
             <div>
                 <button type="submit">検索</button>
                 <button>
-                    <a href="{{ route('show') }}" class="text-white">
+                    <a href="{{ route('groupShow') }}" class="text-white">
                         クリア
                     </a>
                 </button>
@@ -70,7 +64,7 @@
                         </div>
                     </div>
                 </td>
-                <td><a href="{{ route('showDetail', $group->id) }}">{{ $group->title }}</a></td>
+                <td><a href="{{ route('groupShowDetail', $group->id) }}">{{ $group->title }}</a></td>
                 <td>{{ $group->updated_at }}</td>
 
                 <td>
