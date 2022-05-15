@@ -5,62 +5,144 @@
  @include('common.errors')
  <div style="text-align:center; margin-top:100px;">
     <h1 style="font-size:23px;">プロフィール編集</h1>
-    
-        <form action="{{ url('profile_edit/') }}" method="POST" class="form-horizontal">
+
+
+    <div class="card-body">
+        <form action="{{ url('profile_edit/') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
              {{ csrf_field() }}
-                <div class="form-group">
-                    <input type="text" class="form-control" name="name" value="{{ $user->name }}" style="width:250px; hight:1px;">  
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="phone" value="{{ $user->phone }}" style="width:250px; hight:100px;">
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="sex" value="{{ $user->sex }}" style="width:250px; hight:100px;">
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="birthday" value="{{ $user->birthday }}" style="width:250px; hight:100px;">
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="image" value="{{ $user->image }}" style="width:250px; hight:100px;">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="skill" value="{{ $user->skill }}" style="width:250px; hight:100px;">
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="experience_year" value="{{ $user->experience_year }}" style="width:250px; hight:100px;">
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="github" value="{{ $user->github }}" style="width:250px; hight:100px;">
-                </div>
-                <br>
-                <div class="form-group">
-                    <input type="email" class="form-control" name="email" value="{{ $user->email }}" style="width:250px; hight:100px;">
-                </div>
-                <br>
-                
+                    <!-- 名前の入力 -->
+                        <div class="row mb-3">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <!-- メールアドレス入力 -->
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    <!-- 性別 -->
+                        <div class="row mb-3">
+                            <label for="sex" class="col-md-4 col-form-label text-md-end">{{ __('Sex') }}</label>
+
+                            <div class="col-md-6">
+                            <!--<input id="sex" type="select" class="form-control @error('sex') is-invalid @enderror" name="sex" value="{{ old('sex') }}" required> -->
+                            <select name="sex" input id="sex" value="{{ $user->sex }}">
+                                <option value="0">Man</option>
+                                <option value="1">Woman</option>
+                            </select>
+                                @error('sex')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    <!-- スキル -->
+                        <div class="row mb-3">
+                            <label for="skill" class="col-md-4 col-form-label text-md-end">{{ __('Skill') }}</label>
+
+                            <div class="col-md-6">
+                                @foreach(config('const.skill') as $skill =>$value)
+                                <label><input id="skill" type="checkbox"  class="form-check-input" name="skill[]" value="{{ $user->skill }}" >{{$skill}}</label>
+
+                                @error('skill')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                @endforeach
+                            </div>
+                        </div>
+
+                    <!-- 経験年数入力 -->
+                        <div class="row mb-3">
+                            <label for="experience_year" class="col-md-4 col-form-label text-md-end">{{ __('Experience Year') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="experience_year" type="text" class="form-control @error('experience_year') is-invalid @enderror" name="experience_year" value="{{ $user->experience_year }}" required autocomplete="experience_year" autofocus>
+
+                                @error('experience_year')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    <!-- 年齢入力 -->
+                        <div class="row mb-3">
+                            <label for="birthday" class="col-md-4 col-form-label text-md-end">{{ __('Birthday') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ $user->birthday }}" required autocomplete="birthday" autofocus>
+
+                                @error('bithday')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    <!-- github入力 -->
+                        <div class="row mb-3">
+                            <label for="github" class="col-md-4 col-form-label text-md-end">{{ __('Git Hub') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="github" type="text" class="form-control @error('github') is-invalid @enderror" name="github" value="{{ $user->github }}" required autocomplete="github" autofocus>
+
+                                @error('github')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    <!-- プロフィール画像入力 -->
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('プロフィール画像') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ $user->image }}" >
+
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                 <div>
-                     <button type="submit" class="btn btn-default" style="width:100px">編集</button>
+                     <button type="submit" class="btn btn-primary" style="width:100px">編集</button>
                 </div>
         </form>
+    </div>
 
         <br>
-        <form action="{{ url('password/change/') }}"  method="GET">
-            <input type="submit" value="パスワード変更" style="width:100%">
-        </form>
-        <br>
-            
-        <form action="{{ url('delete/') }}" method="POST">
-        @csrf
-            @method('DELETE')
-
-            <input type="submit" value="退会する" style="width:100px">
-
-        </from>
+        <!-- パスワード変更 -->
+        <p><a href="{{ url('/password/change') }}">パスワード変更</a></p>
+        
+        <!-- 退会機能 -->
+        <p><a href="{{ url('/delete_confirm') }} ">退会する</a></p>
 </div>
 @endsection

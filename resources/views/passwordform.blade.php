@@ -1,34 +1,81 @@
-@if(session('warning'))//エラー文を表示させる
-        <div class="alert alert-danger">
-            {{ session('warning') }}
-        </div>
-    @endif
-
-     <div class="row mt-5 mb-5">
-        <div class="col-sm-6 offset-sm-3">
-
-            {!! Form::open(['route'=>'password.change','method'=>'put']) !!}
-                <div class="form-group">
-                    {!! Form::label('current_password','以前のパスワード') !!}
-                    {!! Form::password('current_password',['class'=>'form-control']) !!}
+@extends('layouts.app')
+ 
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">パスワード変更</div>
+ 
+                <div class="panel-body">
+                    {{-- フラッシュメッセージの表示 --}}
+                    @if (session('warning'))
+                        <div class="alert alert-warning">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
+                    @if (session('status'))
+                        <div class="alert alert-info">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <form class="form-horizontal" method="POST" action="{{ url('/password/change') }}">
+                        {{ csrf_field() }}
+                        {{ method_field('patch') }}
+ 
+                        <input type="hidden" name="id" value="{{ $user->id }}">
+                        <div class="form-group{{ $errors->has('current_password') ? ' has-error' : '' }}">
+                            <label for="current_password" class="col-md-4 control-label">Current Password</label>
+ 
+                            <div class="col-md-6">
+                                <input id="current_password" type="password" class="form-control" name="current_password" required>
+ 
+                                @if ($errors->has('current_password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('current_password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+ 
+                        <div class="form-group{{ $errors->has('new_password') ? ' has-error' : '' }}">
+                            <label for="new_password" class="col-md-4 control-label">New Password</label>
+ 
+                            <div class="col-md-6">
+                                <input id="new_password" type="password" class="form-control" name="new_password" required>
+ 
+                                @if ($errors->has('new_password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('new_password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+ 
+                        <div class="form-group{{ $errors->has('new_password_confirmation') ? ' has-error' : '' }}">
+                            <label for="new_password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                            <div class="col-md-6">
+                                <input id="new_password-confirm" type="password" class="form-control" name="new_password_confirmation" required>
+ 
+                                @if ($errors->has('new_password_confirmation'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('new_password_confirmation') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+ 
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    実行
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="form-group">
-                    {!! Form::label('new_password','新しいパスワード') !!}
-                    {!! Form::password('new_password',['class'=>'form-control']) !!}
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('new_password_confirmation','パスワードの確認') !!}
-                    {!! Form::password('new_password_confirmation',['class'=>'form-control']) !!}
-                </div>
-
-                {!! Form::submit('パスワードを変更する',['class'=>'btn btn btn-primary mt-2']) !!}
-            {!! Form::close() !!}
-
+            </div>
         </div>
     </div>
-
-
-
+</div>
 @endsection
