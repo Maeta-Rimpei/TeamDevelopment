@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('first');
 });
 Route::post('/user_register', [App\Http\Controllers\ProfileController::class, 'userRegister'])->name('user_register');
 Route::get('/user_create', [App\Http\Controllers\ProfileController::class, 'create'])->name('user_create');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeUsersTableCloumnImage extends Migration
+class AddBirthdayToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,11 @@ class ChangeUsersTableCloumnImage extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //型を変更
-            $table->string('image')->default('user_default.jpg')->after('name');
-
+          //型を追加  
+                Schema::table('users', function (Blueprint $table) {
+                $table->date('birthday');
+    
+            });
         });
     }
 
@@ -29,7 +31,6 @@ class ChangeUsersTableCloumnImage extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('image');
         });
     }
 }
