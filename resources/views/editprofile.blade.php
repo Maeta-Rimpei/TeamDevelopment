@@ -61,7 +61,7 @@
 
                             <div class="col-md-6">
                                 @foreach(config('const.skill') as $skill =>$value)
-                                <label><input id="skill" type="checkbox"  class="form-check-input" name="skill[]" value="{{ $user->skill }}" >{{$skill}}</label>
+                                <label><input id="skill" type="checkbox"  class="form-check-input" name="skill[]" value="{{ $value }}" @if(in_array($value,explode(',', $user->skill))) checked @endif >{{$skill}}</label>
 
                                 @error('skill')
                                     <span class="invalid-feedback" role="alert">
@@ -122,8 +122,9 @@
                             <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('プロフィール画像') }}</label>
 
                             <div class="col-md-6">
-                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ $user->image }}" >
-
+                                <img src="{{ asset('storage/app/public/images'.$user->image) }}" id="img" width="15%" alt="プロフィール画像">
+                                <input id="image" type="file" class="@error('image') is-invalid @enderror" name="image" value="{{ $user->image }}" onchange="previewImage(this);" >
+                                
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -145,4 +146,15 @@
         <!-- 退会機能 -->
         <p><a href="{{ url('/delete_confirm') }} ">退会する</a></p>
 </div>
+
+<script>
+  function previewImage(obj)
+  {
+    var fileReader = new FileReader();
+    fileReader.onload = (function() {
+      document.getElementById('img').src = fileReader.result;
+    });
+    fileReader.readAsDataURL(obj.files[0]);
+  }
+</script>
 @endsection
