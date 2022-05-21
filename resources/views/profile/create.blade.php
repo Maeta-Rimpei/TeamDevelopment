@@ -144,7 +144,9 @@
                             <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('プロフィール画像') }}</label>
 
                             <div class="col-md-6">
-                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" >
+                                <!-- <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" > -->
+                                <img src="" id="img" width="10%">
+                                <input id="image" type="file" class="@error('image') is-invalid @enderror" name="image" value="" onchange="previewImage(this);" >
 
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
@@ -167,4 +169,15 @@
         </div>
     </div>
 </div>
+
+<script>
+  function previewImage(obj)
+  {
+    var fileReader = new FileReader();
+    fileReader.onload = (function() {
+      document.getElementById('img').src = fileReader.result;
+    });
+    fileReader.readAsDataURL(obj.files[0]);
+  }
+</script>
 @endsection
