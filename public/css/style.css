@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+.container{
+    padding-bottom: 60px;
+    box-sizing: border-box;
+}
+
+.page-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper{
+    max-width:  1100px;
+    margin: 0 auto;
+    padding: 0 4%;
+}
+
+.main-nav{
+    display: flex;
+    font-size: 1.25rem;
+    margin-top: 34px;
+    list-style: none;
+}
+
+.main-nav li{
+    margin-left: 36px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.main-nav a{
+    color:black;
+}
+
+body{
+    background-image: url(../images/enjinia.webp);
+    background-size: cover;
+    background-position: ceter top;
+    flex-flow: column;
+}
+
+img{
+    min-height: 50px;
+}
+
+footer{
+    padding: 26px 0;
+    position: fixed;
+    left: 450px;
+    bottom: 30px;
+}
+
+footer p{
+    color: green;
+    font-size: 50px;
+    height:60px;
+    position:relative;
+    text-align:center;
+    white-space: nowrap;
+}
+
+main{
+    flex: 1;
+}
+
+.wrapper{
+    height: 50px;
+}
+
+h1 a{
+    display: block;
+}
+
+.logo{
+    width: 50px;
+    margin-top: 0;
+}
