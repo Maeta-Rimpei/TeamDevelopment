@@ -51,5 +51,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Userモデル->Applicationテーブル->Groupモデル の紐づけ
+     */
+    public function group()
+    {
+        return $this->belongsToMany('App\Models\Group', 'Applications')->withPivot('comment')->withTimestamps();
+    }
 }
 
