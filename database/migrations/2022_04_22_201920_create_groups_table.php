@@ -20,6 +20,7 @@ class CreateGroupsTable extends Migration
             $table->string('deadline')->comment('納期');
             $table->string('reword')->comment('報酬');
             $table->string('number_applicants')->comment('応募人数');
+            $table->string('count_applicants')->comment('応募中の人数');
             $table->string('number_selection')->comment('選抜人数');
             $table->string('required_skill')->comment('必要なスキル');
             $table->integer('user_id');

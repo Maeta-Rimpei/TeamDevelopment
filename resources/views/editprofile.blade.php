@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+ <!-- バリデーションエラーの表示 -->
+ @include('common.errors')
+ <div style="text-align:center; margin-top:100px;">
+    <h1 style="font-size:23px;">プロフィール編集</h1>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ url('user_register') }}" enctype="multipart/form-data">
-                        @csrf
+
+    <div class="card-body">
+        <form action="{{ url('profile_edit/') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+             {{ csrf_field() }}
                     <!-- 名前の入力 -->
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -24,12 +24,12 @@
                                 @enderror
                             </div>
                         </div>
-                    <!-- メールアドレス入力 -->
+                        <!-- メールアドレス入力 -->
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -38,35 +38,13 @@
                                 @enderror
                             </div>
                         </div>
-                    <!-- パスワード入力 -->
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                    <!-- パスワードの再入力 -->
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
                     <!-- 性別 -->
                         <div class="row mb-3">
                             <label for="sex" class="col-md-4 col-form-label text-md-end">{{ __('Sex') }}</label>
 
                             <div class="col-md-6">
                             <!--<input id="sex" type="select" class="form-control @error('sex') is-invalid @enderror" name="sex" value="{{ old('sex') }}" required> -->
-                            <select name="sex" input id="sex" value="{{ old('sex') }}">
+                            <select name="sex" input id="sex" value="{{ $user->sex }}">
                                 <option value="0">Man</option>
                                 <option value="1">Woman</option>
                             </select>
@@ -83,7 +61,7 @@
 
                             <div class="col-md-6">
                                 @foreach(config('const.skill') as $skill =>$value)
-                                <label><input id="skill" type="checkbox"  class="form-check-input" name="skill[]" value="{{ $value }}" >{{$skill}}</label>
+                                <label><input id="skill" type="checkbox"  class="form-check-input" name="skill[]" value="{{ $value }}" @if(in_array($value,explode(',', $user->skill))) checked @endif >{{$skill}}</label>
 
                                 @error('skill')
                                     <span class="invalid-feedback" role="alert">
@@ -99,7 +77,7 @@
                             <label for="experience_year" class="col-md-4 col-form-label text-md-end">{{ __('Experience Year') }}</label>
 
                             <div class="col-md-6">
-                                <input id="experience_year" type="text" class="form-control @error('experience_year') is-invalid @enderror" name="experience_year" value="{{ old('experience_year') }}" required autocomplete="experience_year" autofocus>
+                                <input id="experience_year" type="text" class="form-control @error('experience_year') is-invalid @enderror" name="experience_year" value="{{ $user->experience_year }}" required autocomplete="experience_year" autofocus>
 
                                 @error('experience_year')
                                     <span class="invalid-feedback" role="alert">
@@ -114,7 +92,7 @@
                             <label for="birthday" class="col-md-4 col-form-label text-md-end">{{ __('Birthday') }}</label>
 
                             <div class="col-md-6">
-                                <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required autocomplete="birthday" autofocus>
+                                <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ $user->birthday }}" required autocomplete="birthday" autofocus>
 
                                 @error('bithday')
                                     <span class="invalid-feedback" role="alert">
@@ -129,7 +107,7 @@
                             <label for="github" class="col-md-4 col-form-label text-md-end">{{ __('Git Hub') }}</label>
 
                             <div class="col-md-6">
-                                <input id="github" type="text" class="form-control @error('github') is-invalid @enderror" name="github" value="{{ old('github') }}" required autocomplete="github" autofocus>
+                                <input id="github" type="text" class="form-control @error('github') is-invalid @enderror" name="github" value="{{ $user->github }}" required autocomplete="github" autofocus>
 
                                 @error('github')
                                     <span class="invalid-feedback" role="alert">
@@ -144,8 +122,9 @@
                             <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('プロフィール画像') }}</label>
 
                             <div class="col-md-6">
-                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" >
-
+                                <img src="{{ asset('storage/app/public/images'.$user->image) }}" id="img" width="15%" alt="プロフィール画像">
+                                <input id="image" type="file" class="@error('image') is-invalid @enderror" name="image" value="{{ $user->image }}" onchange="previewImage(this);" >
+                                
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -154,17 +133,28 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <div>
+                     <button type="submit" class="btn btn-primary" style="width:100px">編集</button>
                 </div>
-            </div>
-        </div>
+        </form>
     </div>
+
+        <br>
+        <!-- パスワード変更 -->
+        <p><a href="{{ url('/password/change') }}">パスワード変更</a></p>
+        
+        <!-- 退会機能 -->
+        <p><a href="{{ url('/delete_confirm') }} ">退会する</a></p>
 </div>
+
+<script>
+  function previewImage(obj)
+  {
+    var fileReader = new FileReader();
+    fileReader.onload = (function() {
+      document.getElementById('img').src = fileReader.result;
+    });
+    fileReader.readAsDataURL(obj.files[0]);
+  }
+</script>
 @endsection
