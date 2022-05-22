@@ -24,15 +24,17 @@ Route::get('/group_show', [App\Http\Controllers\GroupController::class, 'groupSh
 Route::get('/group_showcreate', [App\Http\Controllers\GroupController::class, 'groupShowCreate'])->name('groupShowCreate');
 // グループ作成
 Route::post('/group_execreate', [App\Http\Controllers\GroupController::class, 'groupExeCreate'])->name('groupExeCreate');
-// グループ詳細画面表示
+// グループ詳細/応募一覧画面表示
 Route::get('/group/{id}', [App\Http\Controllers\GroupController::class, 'groupShowDetail'])->name('groupShowDetail');
 // グループ検索
 Route::get('/group/search', [App\Http\Controllers\GroupController::class, 'groupSearch'])->name('groupSearch');
 // -----------------------------------------------------------------------------------------------------------
 
-// -----------------------------------------------応募関連------------------------------------------------
-Route::get('/app_show', [App\Http\Controllers\GroupController::class, 'appShow'])->name('appShow');
+// -----------------------------------------------応募関連----------------------------------------------------
+// 応募機能
+Route::post('/app_execreate', [App\Http\Controllers\GroupController::class, 'appExeCreate'])->name('appExeCreate');
+// 応募フォーム画面表示
+Route::get('/app_showcreate/{id}', [App\Http\Controllers\GroupController::class, 'appShowCreate'])->where('id', '[0-9]+')->name('appShowCreate');
 // -----------------------------------------------------------------------------------------------------------
-
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

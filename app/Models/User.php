@@ -47,6 +47,6 @@ class User extends Authenticatable
      */
     public function group()
     {
-        return $this->belongsToMany('App\Models\Group', 'Applications')->withPivot('comment');
+        return $this->belongsToMany('App\Models\Group', 'Applications')->withPivot('comment')->withTimestamps();
     }
 }

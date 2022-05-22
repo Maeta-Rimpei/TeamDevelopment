@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('grouplist')
+@section('content')
 <div class="row">
     <div class="col-md-12 col-md-offset-2">
         <h2>グループ一覧</h2>
@@ -66,10 +66,9 @@
                 </td>
                 <td><a href="{{ route('groupShowDetail', $group->id) }}">{{ $group->title }}</a></td>
                 <td>{{ $group->updated_at }}</td>
-
                 <td>
                 @if(time() <= strtotime($group->term_of_apply))
-                        <a href="#">応募する</a>
+                        {{ '応募可能' }}
                 @else
                         {{ '募集終了' }}
                 @endif

@@ -55,7 +55,7 @@ class GroupRequest extends FormRequest
         ];
     }
 
-        /**
+    /**
      * バリデーションメッセージ
      * @return array
      */

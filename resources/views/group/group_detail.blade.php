@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('groupdetail')
+@section('content')
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h2>グループ詳細</h2>
@@ -17,30 +17,32 @@
         </p>
         @endif
 
-        @if (time() >= strtotime($group->term_of_apply))
-        <h5>このグループの募集は終了しました。</h5>
+        @if(time() <= strtotime($group->term_of_apply))
+            <a href="{{ route('appShowCreate', $group->id) }}">応募する</a>
+        @else
+            {{ 'このグループの募集は終了しました。' }}
         @endif
 
-        <div class="row">
-            <div class="col-3 d-flex justify-content-center mb-3">件名</div>
-            <div class="col-9">{{ $group->title }}</div>
-            <div class="col-3 d-flex justify-content-center mb-3">仕事内容</div>
-            <div class="col-9 mb-3">{{ $group->content }}</div>
-            <div class="col-3 d-flex justify-content-center mb-3">納期</div>
-            <div class="col-9">{{ $group->deadline }}</div>
-            <div class="col-3 d-flex justify-content-center mb-3">報酬</div>
-            <div class="col-9">{{ number_format($group->reword) . '円' }}</div>
-            <div class="col-3 d-flex justify-content-center mb-3">応募受付人数</div>
-            <div class="col-9">{{ $group->number_applicants . '名' }}</div>
-            <div class="col-3 d-flex justify-content-center mb-3">選抜人数</div>
-            <div class="col-9">{{ $group->number_selection . '名'}}</div>
-            <div class="col-3 d-flex justify-content-center mb-3">必要なスキル</div>
-            <div class="col-9">{{ $group->required_skill}}</div>
-            <div class="col-3 d-flex justify-content-center mb-3">応募期間</div>
-            <div class="col-9">{{ $group->term_of_apply }}</div>
-            <div class="col-3 d-flex justify-content-center mb-3">選抜期間</div>
-            <div class="col-9">{{ $group->term_of_selection }}</div>
-        </div>
+            <div class="row">
+                <div class="col-3 d-flex justify-content-center mb-3">件名</div>
+                <div class="col-9">{{ $group->title }}</div>
+                <div class="col-3 d-flex justify-content-center mb-3">仕事内容</div>
+                <div class="col-9 mb-3">{{ $group->content }}</div>
+                <div class="col-3 d-flex justify-content-center mb-3">納期</div>
+                <div class="col-9">{{ $group->deadline }}</div>
+                <div class="col-3 d-flex justify-content-center mb-3">報酬</div>
+                <div class="col-9">{{ number_format($group->reword) . '円' }}</div>
+                <div class="col-3 d-flex justify-content-center mb-3">応募受付人数</div>
+                <div class="col-9">{{ $group->number_applicants . '名' }}</div>
+                <div class="col-3 d-flex justify-content-center mb-3">選抜人数</div>
+                <div class="col-9">{{ $group->number_selection . '名'}}</div>
+                <div class="col-3 d-flex justify-content-center mb-3">必要なスキル</div>
+                <div class="col-9">{{ $group->required_skill}}</div>
+                <div class="col-3 d-flex justify-content-center mb-3">応募期間</div>
+                <div class="col-9">{{ $group->term_of_apply }}</div>
+                <div class="col-3 d-flex justify-content-center mb-3">選抜期間</div>
+                <div class="col-9">{{ $group->term_of_selection }}</div>
+            </div>
     </div>
 </div>
 

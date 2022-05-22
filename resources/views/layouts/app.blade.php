@@ -76,9 +76,7 @@
         </nav>
 
         <main class="py-4">
-            @yield('grouplist')
-            @yield('groupdetail')
-            @yield('groupform')
+            @yield('content')
         </main>
     </div>
 </body>

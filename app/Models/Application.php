@@ -21,20 +21,4 @@ class Application extends Model
         'status',
         'content'
     ];
-
-    /**
-     *  Applicationモデル->Userモデル の紐づけ
-     */
-    public function comment()
-    {
-        return $this->belongsToMany('App\Models\User');
-    }
-
-    /**
-     * Applicationモデル->Groupモデル の紐づけ
-     */
-    public function group()
-    {
-        return $this->belongsToMany('App\Models\Group');
-    }
 }

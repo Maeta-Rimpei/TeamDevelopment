@@ -32,6 +32,6 @@ class Group extends Model
      */
     public function user()
     {
-        return $this->belongsToMany('App\Models\User', 'applications')->withPivot('comment');
+        return $this->belongsToMany('App\Models\User', 'applications')->withPivot('comment')->withTimestamps();
     }
 }
