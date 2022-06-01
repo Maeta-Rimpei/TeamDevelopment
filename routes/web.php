@@ -39,3 +39,8 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('/password/change', [App\Http\Controllers\Auth\ResetPasswordController::class, 'editpassword'])->name('password.form');
             Route::patch('/password/change', [App\Http\Controllers\Auth\ResetPasswordController::class, 'changepassword'])->name('password.change');
         });
+
+//チャット機能
+Route::get('/chat_home/{to_owners_chat}/{to_clients_chat}', [App\Http\Controllers\ChatHomeController::class, 'index'])->name('chat_home'); //チャットホーム画面
+Route::get('/chat/{recieve}' , [App\Http\Controllers\ChatController::class, 'index'])->name('chat');//ユーザーごとのチャット
+Route::post('/chat/send' , [App\Http\Controllers\ChatController::class, 'store'])->name('chatSend');//送信
