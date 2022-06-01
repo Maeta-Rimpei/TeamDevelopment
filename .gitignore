@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+database/migrations/2022_05_03_142506_change_users_table_cloumn_image.php

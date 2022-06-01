@@ -14,13 +14,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('first');
 });
 Route::post('/user_register', [App\Http\Controllers\ProfileController::class, 'userRegister'])->name('user_register');
 Route::get('/user_create', [App\Http\Controllers\ProfileController::class, 'create'])->name('user_create');
 
-Auth::routes();
+// -----------------------------------------------グループ関連------------------------------------------------
+// グループ一覧画面表示
+Route::get('/group_show', [App\Http\Controllers\GroupController::class, 'groupShow'])->name('groupShow');
+// グループ作成画面
+Route::get('/group_showcreate', [App\Http\Controllers\GroupController::class, 'groupShowCreate'])->name('groupShowCreate');
+// グループ作成
+Route::post('/group_execreate', [App\Http\Controllers\GroupController::class, 'groupExeCreate'])->name('groupExeCreate');
+// グループ詳細/応募一覧画面表示
+Route::get('/group/{id}', [App\Http\Controllers\GroupController::class, 'groupShowDetail'])->name('groupShowDetail');
+// グループ検索
+Route::get('/group/search', [App\Http\Controllers\GroupController::class, 'groupSearch'])->name('groupSearch');
+// -----------------------------------------------------------------------------------------------------------
 
+// -----------------------------------------------応募関連----------------------------------------------------
+// 応募機能
+Route::post('/app_execreate', [App\Http\Controllers\GroupController::class, 'appExeCreate'])->name('appExeCreate');
+// 応募フォーム画面表示
+Route::get('/app_showcreate/{id}', [App\Http\Controllers\GroupController::class, 'appShowCreate'])->where('id', '[0-9]+')->name('appShowCreate');
+// -----------------------------------------------------------------------------------------------------------
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -40,7 +58,9 @@ Route::group(['middleware'=>'auth'],function(){
             Route::patch('/password/change', [App\Http\Controllers\Auth\ResetPasswordController::class, 'changepassword'])->name('password.change');
         });
 
+
 //チャット機能
 Route::get('/chat_home/{to_owners_chat}/{to_clients_chat}', [App\Http\Controllers\ChatHomeController::class, 'index'])->name('chat_home'); //チャットホーム画面
 Route::get('/chat/{recieve}' , [App\Http\Controllers\ChatController::class, 'index'])->name('chat');//ユーザーごとのチャット
 Route::post('/chat/send' , [App\Http\Controllers\ChatController::class, 'store'])->name('chatSend');//送信
+

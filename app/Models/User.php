@@ -31,13 +31,12 @@ class User extends Authenticatable
         'skill',
         'experience_year',
         'sex',
-
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     * @var array　<int, string>
      */
     protected $hidden = [
         'password',
@@ -52,5 +51,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Userモデル->Applicationテーブル->Groupモデル の紐づけ
+     */
+    public function group()
+    {
+        return $this->belongsToMany('App\Models\Group', 'Applications')->withPivot('comment')->withTimestamps();
+    }
 }
 
